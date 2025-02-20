@@ -1,0 +1,29 @@
+{
+  "name": "topojson-sea",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "0_create-blob": "node --experimental-sea-config sea-config.json",
+    "1_create-copy": "cp $(command -v node) geo2topo",
+    "2_remove-signature": "codesign --remove-signature geo2topo",
+    "3_inject": "npx postject geo2topo NODE_SEA_BLOB sea-prep.blob --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2 --macho-segment-name NODE_SEA",
+    "4_sign": "codesign --sign - geo2topo",
+    "native": "npm run 0_create-blob && npm run 1_create-copy && npm run 2_remove-signature && npm run 3_inject && npm run 4_sign",
+    "esbuild": "esbuild ./node_modules/.bin/geo2topo --bundle --platform=node --outfile=out.js",
+    "nexe": "nexe  ./node_modules/.bin/geo2topo_nexe --output ./geo2topo -n geo2topo --build",
+    "pkg": "pkg ./node_modules/.bin/geo2topo -t node14-macos-arm64 -o geo2topo_pkg",
+    "deno": "deno compile -A --output ./geo2topo_deno ./node_modules/.bin/geo2topo",
+    "bun": "bun build ./node_modules/.bin/geo2topo --compile --outfile geo2topo_bun"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "topojson-server": "^3.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0"
+  }
+}
