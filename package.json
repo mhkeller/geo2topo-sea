@@ -14,7 +14,7 @@
     "nexe": "nexe  ./node_modules/.bin/geo2topo_nexe --output ./geo2topo -n geo2topo --build",
     "pkg": "pkg ./node_modules/.bin/geo2topo -t node14-macos-arm64 -o geo2topo_pkg",
     "deno": "deno compile -A --output ./geo2topo_deno ./node_modules/.bin/geo2topo",
-    "bun": "bun build ./node_modules/.bin/geo2topo --compile --outfile geo2topo_bun"
+    "bun": "bun build out.js --compile  --outfile geo2topo_bun"
   },
   "keywords": [],
   "author": "",
